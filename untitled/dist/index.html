@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Photos or PDFs</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Upload Your Photo or PDF</h1>
+  </header>
+
+  <section id="upload">
+    <h2>Upload Your File</h2>
+    <form action="#" method="POST" enctype="multipart/form-data">
+      <input type="file" name="file" accept="image/*, .pdf" required>
+      <button type="submit">Upload</button>
+    </form>
+  </section>
+
+  <section id="creator">
+    <h2>Creator's Section</h2>
+    <div class="content">
+      <!-- Uploaded content will appear here -->
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Your Website</p>
+  </footer>
+
+  <script>
+    // Example JavaScript to display uploaded file previews (only for images)
+    const form = document.querySelector('form');
+    const contentDiv = document.querySelector('#creator .content');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const fileInput = document.querySelector('input[type="file"]');
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function () {
+        const fileType = file.type.split('/')[0];
+
+        const fileElement = document.createElement('div');
+        fileElement.classList.add('uploaded-file');
+
+        if (fileType === 'image') {
+          const img = document.createElement('img');
+          img.src = reader.result;
+          img.alt = 'Uploaded Image';
+          fileElement.appendChild(img);
+        } else if (file.type === 'application/pdf') {
+          const pdfLink = document.createElement('a');
+          pdfLink.href = reader.result;
+          pdfLink.textContent = 'View PDF';
+          fileElement.appendChild(pdfLink);
+        }
+
+        contentDiv.appendChild(fileElement);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
